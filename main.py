@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from bd.database import sesion, bd, base
 from routers.movie import ruta_pelucula
 from routers.usuario import ruta_usuario
+import os
 
 app=FastAPI(
     title="Comenzando",
@@ -14,7 +15,9 @@ app.include_router(ruta_usuario)
 
 base.metadata.create_all(bind=bd)
 
-
+if __name__=="__main__":
+    port=int(os.environ.get("PORT",8000))
+    uvicorn.run("main:app", host="0.0.0.0",port=port)
 
 """
 pelis=[
